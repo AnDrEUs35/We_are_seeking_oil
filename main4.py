@@ -1,5 +1,6 @@
 import ee
 import geemap
+import folium
 ee.Initialize(project="nice-hydra-465212-a1")
 
 # Определим область интереса (например, точка в Москве)
@@ -17,4 +18,3 @@ ndvi = image.normalizedDifference(['SR_B5', 'SR_B4']).rename('NDVI')
 print(ndvi.getInfo()['properties'])
 m = geemap.Map(center=(37.11651362719904, 44.942910730786004), zoom=8)
 m.addLayer(ndvi, {'min': 0, 'max': 0.5, 'palette': ['blue','white','green']}, 'NDVI')
-m
