@@ -32,6 +32,7 @@ def process_all_tiff_files(input_directory, output_directory):
                     total = np.zeros(band1.shape, dtype=np.float64)
 
                     # Add the two bands together
+                    band2 = band1
                     total += band1
                     total += band2
 
