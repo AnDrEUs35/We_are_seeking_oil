@@ -57,7 +57,7 @@ def process_all_tiff_files(input_directory, output_directory):
 # --- How to use this function ---
 if __name__ == "__main__":
     # Define your input directory where the original TIFF files are located
-    input_dir = '01_Train_Val_Oil_Spill_images\\Mask_oil'
+    input_dir = 'C:\\Users\\Sirius\\Desktop\\neuronetwork\\01_Train_Val_Lookalike_mask\\Mask_lookalike'
     # Define your output directory where the processed TIFF files will be saved
     output_dir = 'processed_mask_oil_spill_images'
 

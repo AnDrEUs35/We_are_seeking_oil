@@ -8,3 +8,5 @@ S1A_IW_GRDH_1SDV_20241218T034044_20241218T034109_057041_070294_0CFA (1)_Cal_TC.t
 02_processed_3_channels_oil_spill_images/
 01_Train_Val_Lookalike_mask/
 01_Train_Val_Lookalike_images/
+test_ready/
+processed_mask_oil_spill_images/

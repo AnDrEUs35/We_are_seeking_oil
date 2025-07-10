@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"name": "neuronetwork",
+			"path": "."
+		},
+		{
+			"name": "Mask_oil",
+			"path": "../Mask_oil"
+		}
+	],
+	"settings": {}
+}
