@@ -1,0 +1,8 @@
+__pycache__/
+.ruff_cache/
+images/
+images_test/
+masks/
+masks_test/
+output_images/
+test_dir/
