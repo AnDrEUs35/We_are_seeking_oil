@@ -34,12 +34,12 @@ if device == "cpu":
 
 # Change this to your desired directory
 main_dir = os.getcwd()
-val_dir = os.path.join(main_dir, "images_test")
-mask_dir = os.path.join(main_dir, "masks")
-mask_dir_2 = os.path.join(main_dir, "masks_test")
-std_dir = os.path.join(main_dir, "images")
-
-test_dir = os.path.join(main_dir, "test_dir")
+val_dir = os.path.join(main_dir, "im_val")
+mask_val_dir = os.path.join(main_dir, "mask_val")
+mask_train_dir = os.path.join(main_dir, "mask_train")
+train_dir = os.path.join(main_dir, "im_train")
+mask_test_dir = os.path.join(main_dir, "mask_test")
+test_dir = os.path.join(main_dir, "im_test")
 
 
 
@@ -204,14 +204,14 @@ def test_model(model, output_dir, test_dataloader, loss_fn, device):
 # ----------------------------
 # Define the data directories and create the datasets
 # ----------------------------
-x_train_dir = std_dir
-y_train_dir = mask_dir
+x_train_dir = train_dir
+y_train_dir = mask_train_dir
 
 x_val_dir = val_dir
-y_val_dir = mask_dir_2
+y_val_dir = mask_val_dir
 
 x_test_dir = test_dir
-y_test_dir = test_dir
+y_test_dir = mask_test_dir
 
 train_dataset = Dataset(
     x_train_dir,
