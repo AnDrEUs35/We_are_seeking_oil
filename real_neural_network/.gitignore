@@ -12,4 +12,4 @@ im_val/
 mask_test/
 mask_train/
 mask_val/
-
+model.bin
