@@ -33,7 +33,7 @@ if device == "cpu":
     torch.set_num_threads(os.cpu_count())
 
 # Change this to your desired directory
-main_dir = os.getcwd()
+main_dir = Path(__file__).parent
 val_dir = os.path.join(main_dir, "im_val")
 mask_val_dir = os.path.join(main_dir, "mask_val")
 mask_train_dir = os.path.join(main_dir, "mask_train")
@@ -50,7 +50,7 @@ os.makedirs(output_dir, exist_ok=True)
 # ----------------------------
 # Define the hyperparameters
 # ----------------------------
-epochs_max = 20  # Number of epochs to train the model
+epochs_max = 70  # Number of epochs to train the model
 adam_lr = 2e-4  # Learning rate for the Adam optimizer
 eta_min = 1e-5  # Minimum learning rate for the scheduler
 batch_size = 8  # Batch size for training
@@ -329,6 +329,7 @@ test_loss = test_model(model, output_dir, test_dataloader, loss_fn, device)
 logging.info(f"Test Loss: {test_loss[0]}, IoU Score: {test_loss[1]}")
 logging.info(f"The output masks are saved in {output_dir}.")
 
+torch.save(model.state_dict(), Path(__file__).parent / "model.bin")
 
 
 """

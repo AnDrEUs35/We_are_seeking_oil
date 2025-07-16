@@ -6,3 +6,10 @@ masks/
 masks_test/
 output_images/
 test_dir/
+im_test/
+im_train/
+im_val/
+mask_test/
+mask_train/
+mask_val/
+

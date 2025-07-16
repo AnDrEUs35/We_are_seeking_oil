@@ -60,12 +60,12 @@ class Dataset(BaseDataset):
             - mask_remap (torch.Tensor): The preprocessed mask tensor of
             shape input_image_reshape with values 0 or 1.
         """
-        print(self.images_filepaths[i])
+        # print(self.images_filepaths[i])
         # Read the image
         image = cv2.imread(
             self.images_filepaths[i], cv2.IMREAD_COLOR_RGB
         )  # Read image as RGB
-        print(image is None, image.shape)
+        # print(image is None, image.shape)
         
         # resize image to input_image_reshape
         image = cv2.resize(image, self.input_image_reshape)
