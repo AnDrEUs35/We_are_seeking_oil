@@ -3,8 +3,8 @@ import shutil
 import random
 
 # Пути к исходным данным
-images_dir = 'snaps/cropped_images_png'
-masks_dir = 'snaps/cropped_masks_png'
+images_dir = 'dataset/cropped_images_png'
+masks_dir = 'dataset/cropped_masks_png'
 
 # Пути для новой выборки
 output_images_dir = 'ready/im_val'
