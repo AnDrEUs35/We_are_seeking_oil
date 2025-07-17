@@ -50,11 +50,11 @@ os.makedirs(output_dir, exist_ok=True)
 # ----------------------------
 # Define the hyperparameters
 # ----------------------------
-epochs_max = 20  # Number of epochs to train the model
+epochs_max = 70  # Number of epochs to train the model
 adam_lr = 2e-4  # Learning rate for the Adam optimizer
 eta_min = 1e-5  # Minimum learning rate for the scheduler
 batch_size = 8  # Batch size for training
-input_image_reshape = (512, 512)  # Desired shape for the input images and masks
+input_image_reshape = (128, 128)  # Desired shape for the input images and masks
 foreground_class = 255  # 1 for binary segmentation
 
 
@@ -68,8 +68,8 @@ def visualize(output_dir, image_filename, **images):
         plt.yticks([])
         plt.title(" ".join(name.split("_")).title())
         plt.imshow(image)
-    plt.show()
     plt.savefig(os.path.join(output_dir, image_filename))
+    plt.show()
     plt.close()
 
 
@@ -200,8 +200,23 @@ def test_model(model, output_dir, test_dataloader, loss_fn, device):
         torch.tensor([tn]),
         reduction="micro",
     )
+    accuracy = smp.metrics.accuracy(
+        torch.tensor([tp]),
+        torch.tensor([fp]),
+        torch.tensor([fn]),
+        torch.tensor([tn]),
+        reduction="macro",
+    )
 
-    return test_loss_mean, iou_score.item()
+    f1_score = smp.metrics.f1_score(
+        torch.tensor([tp]),
+        torch.tensor([fp]),
+        torch.tensor([fn]),
+        torch.tensor([tn]),
+        reduction="micro",
+    )
+
+    return test_loss_mean, accuracy.item(), f1_score.item(), iou_score.item()
 
 
 # ----------------------------
@@ -329,7 +344,7 @@ plt.close()
 # Evaluate the model
 test_loss = test_model(model, output_dir, test_dataloader, loss_fn, device)
 
-logging.info(f"Test Loss: {test_loss[0]}, IoU Score: {test_loss[1]}")
+logging.info(f"Test Loss: {test_loss[0]}, IoU Score: {test_loss[3]}, Accuracy: {test_loss[1]}, F1 score: {test_loss[2]}")
 logging.info(f"The output masks are saved in {output_dir}.")
 
 torch.save(model.state_dict(), Path(__file__).parent / "model.bin")

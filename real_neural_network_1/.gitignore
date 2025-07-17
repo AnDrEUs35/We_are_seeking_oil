@@ -13,3 +13,4 @@ im_val/
 mask_test/
 im_test/
 mask_val/
+model.bin
