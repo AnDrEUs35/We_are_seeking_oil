@@ -50,12 +50,12 @@ os.makedirs(output_dir, exist_ok=True)
 # ----------------------------
 # Define the hyperparameters
 # ----------------------------
-epochs_max = 70  # Number of epochs to train the model
-adam_lr = 2e-4  # Learning rate for the Adam optimizer
+epochs_max = 5  # Number of epochs to train the model
+adam_lr = 1e-4  # Learning rate for the Adam optimizer
 eta_min = 1e-5  # Minimum learning rate for the scheduler
 batch_size = 8  # Batch size for training
 input_image_reshape = (320, 320)  # Desired shape for the input images and masks
-foreground_class = 1  # 1 for binary segmentation
+foreground_class = 255  # 1 for binary segmentation
 
 
 def visualize(output_dir, image_filename, **images):

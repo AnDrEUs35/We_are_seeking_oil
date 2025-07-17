@@ -3,12 +3,12 @@ import shutil
 import random
 
 # Пути к исходным данным
-images_dir = 'ready/images'
-masks_dir = 'ready/masks'
+images_dir = 'snaps/cropped_images_png'
+masks_dir = 'snaps/cropped_masks_png'
 
 # Пути для новой выборки
-output_images_dir = 'ready/images_test'
-output_masks_dir = 'ready/masks_test'
+output_images_dir = 'ready/im_val'
+output_masks_dir = 'ready/mask_val'
 
 # Создаем папки, если их нет
 os.makedirs(output_images_dir, exist_ok=True)
