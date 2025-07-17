@@ -30,8 +30,8 @@ class Dataset(torch.utils.data.Dataset):
         self,
         images_dir,
         masks_dir,
-        input_image_reshape=(320, 320),
-        foreground_class=1,
+        input_image_reshape,
+        foreground_class,
         augmentation=None,
     ):
         self.image_paths = [

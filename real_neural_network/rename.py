@@ -5,8 +5,8 @@ from pathlib import Path
 
 # ===== КОНФИГУРАЦИЯ =====
 INPUT_DIR = Path.cwd() / sys.argv[1]  # Входная директория с бинарными масками
-OUTPUT_DIR = Path.cwd() / (sys.argv[1] + "_png_Oil") 
-PREFIX = "Oil_"  # Ваш префикс
+OUTPUT_DIR = Path.cwd() / (sys.argv[1] + "_png_No_oil") 
+PREFIX = "No_oil_"  # Ваш префикс
 # ========================
 
 # Проверка существования директорий

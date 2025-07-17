@@ -1,99 +1,30 @@
-#C:\\Users\\Sirius\\Desktop\\neuronetwork\\real_neural_network\\normalno
-#C:\\Users\\Sirius\\Desktop\\neuronetwork\\real_neural_network\\Oil
-
-
-import numpy as np
-from pathlib import Path
+from osgeo import gdal
+import os
 import rasterio
-from PIL import Image
-import sys 
 
-# ===== КОНФИГУРАЦИЯ =====
-INPUT_DIR = Path.cwd() / sys.argv[1]  # Входная директория с бинарными масками
-OUTPUT_DIR = Path.cwd() / (sys.argv[1]+"_png")   # Выходная директория для PNG
-# ========================
+def only_2_band(path_to_dir, out_path):
+    for file in os.listdir(path_to_dir):
+        path_to_file = os.path.join(path_to_dir, file)
+        with rasterio.open(path_to_file) as src:
+            img_array = src.read(2)
+            profile = src.profile
+            profile.update({
+                'count': 1
+            })
+        path_to_out_file = os.path.join(out_path, file)
+        with rasterio.open(path_to_out_file, 'w', **profile) as img:
+            img.write(img_array, 1)
 
-def normalize_to_8bit(arr):
-    """Нормализует данные в 8-битный диапазон (0-255)"""
-    arr = np.nan_to_num(arr, nan=0.0, posinf=np.nanmax(arr), neginf=np.nanmin(arr))
-    min_val = np.min(arr)
-    max_val = np.max(arr)
-    
-    if min_val == max_val:
-        return np.zeros_like(arr, dtype=np.uint8)
-    
-    normalized = (arr - min_val) / (max_val - min_val)
-    return (normalized * 255).astype(np.uint8)
-
-def process_geotiff(input_path, output_path):
-    """Обрабатывает GeoTIFF и сохраняет как PNG"""
-    try:
-        with rasterio.open(input_path) as src:
-            # Проверяем количество каналов
-            if src.count < 2:
-                print(f"  Требуется минимум 2 канала, найдено {src.count}")
-                return False
-            
-            # Читаем первые два канала
-            ch1 = src.read(1)
-            ch2 = src.read(2)
-            
-            # Нормализуем в 8-битный диапазон
-            ch1_norm = normalize_to_8bit(ch1)
-            ch2_norm = normalize_to_8bit(ch2)
-            
-            # Создаем третий канал как среднее
-            ch3_norm = ((ch1_norm.astype(np.uint16) + ch2_norm.astype(np.uint16)) // 2).astype(np.uint8)
-            
-            # Собираем RGB изображение (H x W x 3)
-            rgb = np.dstack((ch1_norm, ch2_norm, ch3_norm))
-            
-            # Создаем и сохраняем PNG
-            img = Image.fromarray(rgb, mode='RGB')
-            img.save(output_path)
-            return True
-            
-    except Exception as e:
-        print(f"  Ошибка: {str(e)}")
-        return False
-
-def main():
-    print("Конвертер GeoTIFF в PNG")
-    print(f"Вход: {INPUT_DIR}")
-    print(f"Выход: {OUTPUT_DIR}\n")
-    
-    if not INPUT_DIR.exists():
-        print("Ошибка: Входная директория не существует")
-        return
-    
-    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-    
-    # Находим все GeoTIFF файлы
-    tiff_files = []
-    for ext in ('*.tif', '*.tiff', '*.TIF', '*.TIFF'):
-        tiff_files.extend(INPUT_DIR.glob(ext))
-    
-    if not tiff_files:
-        print("Не найдено GeoTIFF файлов")
-        return
-    
-    success = 0
-    failed = 0
-    
-    for tiff_path in tiff_files:
-        png_path = OUTPUT_DIR / (tiff_path.stem + '.png')
-        print(f"Обработка: {tiff_path.name}...", end=' ')
+def tiff_to_png():
+    gdal.UseExceptions()
+    masks = ''
+    images = "C:\\Users\\Sirius\\Desktop\\Mask_Lookalike/"
+    for f in os.listdir(images):
+        in_path = images+f
+        out_path = 'C:\\Users\\Sirius\\Desktop\\Mask_Lookalike_png/'+os.path.splitext(f)[0]+'.png'
+        ds = gdal.Translate(out_path, in_path, options="-scale -ot Byte")
         
-        if process_geotiff(tiff_path, png_path):
-            print("Успешно")
-            success += 1
-        else:
-            print("Ошибка")
-            failed += 1
-    
-    print("\nРезультат:")
-    print(f"Успешно: {success}")
-    print(f"Ошибок: {failed}")
 
-if __name__ == "__main__":
-    main()
+if __name__ == '__main__':
+    #only_2_band('C:\\Users\\Sirius\\Desktop\\Lookalike', 'C:\\Users\\Sirius\\Desktop\\Lookalike_2band')
+    tiff_to_png()
