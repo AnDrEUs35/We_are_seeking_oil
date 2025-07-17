@@ -38,7 +38,7 @@ class Model(torch.nn.Module):
         # Normalize image
         image = (image - self.mean) / self.std
         mask = self.model(image)
-        return mask
+        return mask.unsqueeze(1)
 
 
 
