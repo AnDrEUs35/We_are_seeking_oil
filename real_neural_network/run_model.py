@@ -15,7 +15,7 @@ y_test_dir = os.path.join(main_dir, "mask_test")
 output_dir = os.path.join(main_dir, "output_images")
 os.makedirs(output_dir, exist_ok=True)
 
-input_image_reshape = (128, 128)  # или (320, 320) если нужно выше качество
+input_image_reshape = (128, 128)  
 foreground_class = 255
 batch_size = 8
 
@@ -36,8 +36,6 @@ test_dataset = Dataset(
     foreground_class=foreground_class,
 )
 test_dataloader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
-
-# Функция потерь (должна быть та же, что при обучении)
 
 loss_fn = smp.losses.DiceLoss(smp.losses.BINARY_MODE, from_logits=True)
 

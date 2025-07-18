@@ -14,3 +14,8 @@ mask_train/
 mask_val/
 model.bin
 ready/
+model1.bin
+Novoros_mask.png
+Novoros.png
+your_file.png
+out/

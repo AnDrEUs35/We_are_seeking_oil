@@ -18,13 +18,13 @@ def only_2_band(path_to_dir, out_path):
 def tiff_to_png():
     gdal.UseExceptions()
     masks = ''
-    images = "C:\\Users\\Sirius\\Desktop\\Mask_Lookalike/"
+    images = "C:\\Users\\Sirius\\Desktop\\[eqyz/"
     for f in os.listdir(images):
         in_path = images+f
-        out_path = 'C:\\Users\\Sirius\\Desktop\\Mask_Lookalike_png/'+os.path.splitext(f)[0]+'.png'
+        out_path = 'C:\\Users\\Sirius\\Desktop\\[eqyz2/'+os.path.splitext(f)[0]+'.png'
         ds = gdal.Translate(out_path, in_path, options="-scale -ot Byte")
         
 
 if __name__ == '__main__':
-    #only_2_band('C:\\Users\\Sirius\\Desktop\\Lookalike', 'C:\\Users\\Sirius\\Desktop\\Lookalike_2band')
+    #only_2_band('C:\\Users\\Sirius\\Downloads\\Novoros.tif', 'C:\\Users\\Sirius\\Desktop\\Novoros_2band')
     tiff_to_png()

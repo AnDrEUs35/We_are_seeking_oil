@@ -15,7 +15,7 @@ logging.basicConfig(
 # ----------------------------
 # Set the device to GPU if available
 # ----------------------------
-device = "cuda" if torch.cuda.is_available() else "cpu"
+device = "cuda" if torch.cuda.is_available() else "cpu" #нужно комментировать
 logging.info(f"Using device: {device}")
 if device == "cpu":
     os.system("export OMP_NUM_THREADS=64")

@@ -27,7 +27,7 @@ logging.basicConfig(
 # ----------------------------
 
 
-device = "cuda" if torch.cuda.is_available() else "cpu"
+device = "cpu"
 logging.info(f"Using device: {device}")
 if device == "cpu":
     os.system("export OMP_NUM_THREADS=64")
@@ -51,7 +51,7 @@ os.makedirs(output_dir, exist_ok=True)
 # ----------------------------
 # Define the hyperparameters
 # ----------------------------
-epochs_max = 5  # Number of epochs to train the model
+epochs_max = 70  # Number of epochs to train the model
 adam_lr = 2e-4  # Learning rate for the Adam optimizer
 eta_min = 1e-5  # Minimum learning rate for the scheduler
 batch_size = 8  # Batch size for training

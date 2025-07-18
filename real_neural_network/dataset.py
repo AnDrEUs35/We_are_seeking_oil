@@ -100,8 +100,6 @@ class Dataset(BaseDataset):
         return len(self.ids)
 
 
-
-
 """
 class Dataset(BaseDataset):
     
