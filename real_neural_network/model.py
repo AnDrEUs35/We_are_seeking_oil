@@ -6,20 +6,20 @@ import logging
 import os
 
 
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s - %(message)s",
-    datefmt="%d:%m:%Y %H:%M:%S",
-)
+#logging.basicConfig(
+ #   level=logging.INFO,
+  #  format="%(asctime)s - %(message)s",
+   # datefmt="%d:%m:%Y %H:%M:%S",
+#)
 
 # ----------------------------
 # Set the device to GPU if available
 # ----------------------------
-device = "cuda" if torch.cuda.is_available() else "cpu" #нужно комментировать
-logging.info(f"Using device: {device}")
-if device == "cpu":
-    os.system("export OMP_NUM_THREADS=64")
-    torch.set_num_threads(os.cpu_count())
+device = "cpu" #if torch.cuda.is_available() else "cpu" #нужно комментировать
+#logging.info(f"Using device: {device}")
+#if device == "cpu":
+   # os.system("export OMP_NUM_THREADS=64")
+    #torch.set_num_threads(os.cpu_count())
 
 class Model(torch.nn.Module):
     def __init__(self, arch, encoder_name, in_channels=3, out_classes=1, **kwargs):

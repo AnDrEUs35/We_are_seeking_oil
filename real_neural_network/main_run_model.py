@@ -28,10 +28,10 @@ logging.basicConfig(
 
 
 device = "cpu"
-logging.info(f"Using device: {device}")
-if device == "cpu":
-    os.system("export OMP_NUM_THREADS=64")
-    torch.set_num_threads(os.cpu_count())
+#logging.info(f"Using device: {device}")
+#if device == "cpu":
+ #   os.system("export OMP_NUM_THREADS=64")
+ #   torch.set_num_threads(os.cpu_count())
 
 # Change this to your desired directory
 main_dir = Path(__file__).parent
@@ -344,7 +344,7 @@ torch.backends.cudnn.benchmark = True
 
 # # Evaluate the model
 model = Model("Unet", "resnet34", in_channels=3, out_classes=1)
-model.load_state_dict(torch.load("model.bin"))
+model.load_state_dict(torch.load("model1.bin"))
 test_loss = test_model(model, output_dir, test_dataloader, loss_fn, device)
 
 # logging.info(f"Test Loss: {test_loss[0]}, IoU Score: {test_loss[3]}, Accuracy: {test_loss[1]}, F1 score: {test_loss[2]}")
