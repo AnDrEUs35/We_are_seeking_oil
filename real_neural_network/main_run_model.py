@@ -15,10 +15,6 @@ logging.basicConfig(
     datefmt="%d:%m:%Y %H:%M:%S",
 )
 
-# ----------------------------
-# Set the device to GPU if available
-# ----------------------------
-
 
 device = "cpu"
 
@@ -35,33 +31,25 @@ os.makedirs(output_dir, exist_ok=True)
 # Define the hyperparameters
 # ----------------------------
 
-
-eta_min = 1e-5  # Minimum learning rate for the scheduler
-batch_size = 8  # Batch size for training
 input_image_reshape = (128, 128)  # Desired shape for the input images and masks
-foreground_class = 255  # 1 for binary segmentation
-
 
 def test_model(model, output_dir, arr, device, reshape):
     model.eval()
     with torch.no_grad():
         for i in range (len(arr)):
-           
+            image = cv2.imread(arr[i])
             image = cv2.resize(image, reshape)
             image = torch.tensor(image).float().permute(2, 0, 1) / 255.0  
             output_img = img_to_mask(model, image.to(device))
             output_img = Image.fromarray(output_img)
-            output_img.save(os.path.join(output_dir, f"аутпут{i}.png"))
-       
-    
-
-           
+            output_img = np.array(output_img)
+            #output_img.save(os.path.join(output_dir, f"аутпут{i}.png"))
+            print(output_img)
+          
 def img_to_mask(model, image):        
     output = torch.sigmoid(model(image))
     return output.squeeze().cpu().numpy() > 0.5
-
-
-       
+   
         
 ids = os.listdir(test_dir)
 images_filepaths = [
@@ -74,3 +62,4 @@ torch.backends.cudnn.benchmark = True
 model = Model("Unet", "resnet34", in_channels=3, out_classes=1)
 model.load_state_dict(torch.load("model1.bin"))
 test_model(model, output_dir, images_filepaths, device, input_image_reshape)
+
